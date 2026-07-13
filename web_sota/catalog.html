@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pinokio Catalog</title>
+<style>
+  :root {
+    --ink: #16181d;
+    --paper: #1c1f26;
+    --paper-raised: #23262e;
+    --line: #33373f;
+    --brass: #c8974f;
+    --brass-dim: #8a6a3a;
+    --text: #d8d4c8;
+    --text-dim: #8b8a82;
+    --green: #7ba05b;
+    --amber-warn: #c88a3f;
+    --red-dim: #a05b5b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Courier New', ui-monospace, monospace;
+    line-height: 1.5;
+  }
+  header {
+    padding: 3rem 2rem 2rem;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--paper) 0%, var(--ink) 100%);
+  }
+  h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 2.4rem;
+    margin: 0 0 0.3rem;
+    color: var(--brass);
+    letter-spacing: 0.01em;
+  }
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    max-width: 62ch;
+  }
+  .meta-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .meta-row strong { color: var(--brass); font-weight: normal; }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  button.tier-filter {
+    font-family: inherit;
+    font-size: 0.75rem;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  button.tier-filter:hover { border-color: var(--brass-dim); color: var(--text); }
+  button.tier-filter.active { border-color: var(--brass); color: var(--brass); background: rgba(200,151,79,0.08); }
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+  .card {
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    margin-bottom: 0.9rem;
+    padding: 1.1rem 1.4rem;
+    display: grid;
+    grid-template-columns: 90px 1fr 130px;
+    gap: 1.2rem;
+    align-items: start;
+  }
+  .card .num {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: var(--brass-dim);
+    font-size: 0.75rem;
+    padding-top: 0.15rem;
+  }
+  .card .size {
+    font-size: 1.05rem;
+    color: var(--brass);
+  }
+  .card .name {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: bold;
+  }
+  .card .desc { color: var(--text-dim); font-size: 0.82rem; margin-top: 0.3rem; }
+  .card .relevance {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--line);
+    color: var(--text-dim);
+  }
+  .card .relevance strong { color: var(--brass); font-weight: normal; }
+  .tier-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid;
+    text-align: center;
+  }
+  .tier-high { color: var(--green); border-color: var(--green); }
+  .tier-medium { color: var(--amber-warn); border-color: var(--amber-warn); }
+  .tier-low { color: var(--text-dim); border-color: var(--line); }
+  .tier-unusable { color: var(--red-dim); border-color: var(--red-dim); }
+  .flag {
+    display: inline-block;
+    font-size: 0.65rem;
+    color: var(--red-dim);
+    margin-top: 0.3rem;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    border-top: 1px solid var(--line);
+  }
+  footer a { color: var(--brass-dim); }
+  @media (max-width: 640px) {
+    .card { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Specimens, found and catalogued</h1>
+  <div class="subtitle">Twenty Pinokio installs, made for a dozen unrelated reasons over the past year, surveyed 2026-07-14 and read against what the fleet actually needs today. Nothing here was built &mdash; it was recognized.</div>
+  <div class="meta-row">
+    <div><strong>20</strong> apps</div>
+    <div><strong>~550GB</strong> total</div>
+    <div><strong>4</strong> already integrated or evaluated</div>
+  </div>
+</header>
+
+<div class="controls" id="controls"></div>
+
+<main id="catalog"></main>
+
+<footer>
+  Generated from <code>AVAILABLE_APPS.md</code> &middot; full fleet cross-reference at
+  <code>mcp-central-docs/architecture/PINOKIO_INVENTORY.md</code> &middot;
+  re-survey with <code>pinokio-mcp</code>'s <code>app_management(action="list")</code> plus a manual weight check &mdash;
+  see the <em>Known gap</em> note in AVAILABLE_APPS.md.
+</footer>
+
+<script>
+const DATA = [
+  {app:"lingbot-world-pinokio.git", size:183.4, tier:"high", cat:"Video generation", desc:"Purpose-built world model, image-to-video, 4-bit quantized (~20GB VRAM).", relevance:"splatmaker-mcp from_prompt stage 5 &mdash; may solve multi-view consistency better than general video diffusion. Untested, highest risk.", flag:null},
+  {app:"Hunyuan3D-2-lowvram.git", size:75.0, tier:"medium", cat:"3D / spatial", desc:"Image-to-3D-mesh, runs on as little as 6GB VRAM.", relevance:"Possibly already blender-mcp's \"Hunyuan\" mesh backend &mdash; unconfirmed, check before assuming either way.", flag:null},
+  {app:"Frame-Pack.git", size:45.2, tier:"low", cat:"Video generation", desc:"Progressive, next-frame-section video generation.", relevance:"Same territory as Wan/lingbot-world/hunyuanvideo, no unique angle identified yet.", flag:null},
+  {app:"hunyuanvideo.git", size:41.2, tier:"medium", cat:"Video generation", desc:"Tencent HunyuanVideo, GPU-poor-optimized.", relevance:"Real Wan/lingbot-world alternative, value not yet established vs either.", flag:null},
+  {app:"SongGeneration-Studio.git", size:40.1, tier:"high", cat:"Song / music", desc:"Full songs: lyrics, vocals, instrumental, style control.", relevance:"songgeneration-mcp exists with no real backend &mdash; this is likely it.", flag:null},
+  {app:"wan.git", size:30.2, tier:"high", cat:"Video generation", desc:"Wan 2.1, video generation optimized for GPU-poor machines.", relevance:"Already reused &mdash; copied into a real ComfyUI install 2026-07-14, confirmed working. Note: Wan 2.7 is meaningfully better (video-extend, reference-driven generation) and not yet downloaded.", flag:null},
+  {app:"yue.git", size:22.8, tier:"low", cat:"Song / music", desc:"YuE, open full-song generation foundation model.", relevance:"Same gap as SongGeneration-Studio, comparison option only.", flag:null},
+  {app:"MagicQuill.git", size:18.7, tier:"low", cat:"Image gen / edit", desc:"Interactive image editing &mdash; erase/add objects.", relevance:"No clear fleet-server consumer identified yet.", flag:null},
+  {app:"diffrhythm.git", size:18.4, tier:"low", cat:"Song / music", desc:"Song generation up to 4m45s, lyrics or instrumental.", relevance:"Same gap as SongGeneration-Studio, comparison option only.", flag:null},
+  {app:"cube.git", size:14.6, tier:"medium", cat:"3D / spatial", desc:"Roblox's 3D foundation model.", relevance:"Novel, plausibly relevant to the VR/3D-asset chain (robofang, worldlabs-mcp), unconfirmed.", flag:null},
+  {app:"StyleAligned.pinokio.git", size:12.0, tier:"low", cat:"Image gen / edit", desc:"Style-aligned image generation via shared attention.", relevance:"Niche technique, no fleet consumer identified.", flag:null},
+  {app:"MMAudio.git", size:10.3, tier:"medium", cat:"Audio (non-speech)", desc:"Synchronized audio generation from video or text input.", relevance:"Fills a distinct gap &mdash; nothing else here does soundtrack-for-silent-video.", flag:null},
+  {app:"clarity-refiners-ui.git", size:8.2, tier:"low", cat:"Image gen / edit", desc:"Image upscaling / enhancement.", relevance:"comfyops-mcp roster already plans ESRGAN/SUPIR for this.", flag:null},
+  {app:"ml-sharp-pinokio.git", size:7.7, tier:"high", cat:"3D / spatial", desc:"One-click single-image-to-3D-Gaussian-splat.", relevance:"Best impact-per-GB here. Could let splatmaker-mcp's from_prompt skip the whole video-gen-then-photogrammetry chain for single-image cases.", flag:null},
+  {app:"facefusion-pinokio.git", size:6.8, tier:"low", cat:"Image gen / edit", desc:"Industry-leading face manipulation platform.", relevance:"No identified fleet use case, awareness only.", flag:null},
+  {app:"flux-2-klein-pinokio.git", size:6.1, tier:"unusable", cat:"Image gen / edit", desc:"Environment only. Every file over 100MB is a torch/CUDA library &mdash; zero model weights despite the name.", relevance:"comfyops-mcp lists FLUX.2 klein as its daily driver &mdash; still needs a real download.", flag:"CHECKED: no real weights present"},
+  {app:"zonos.git", size:5.9, tier:"high", cat:"Text-to-speech", desc:"Zonos-v0.1, open-weight, 200k+ hours multilingual training.", relevance:"Real alternative to ittybitty's stubbed CosyVoice TTS integration.", flag:null},
+  {app:"comfy.git", size:5.5, tier:"unusable", cat:"Image gen / edit", desc:"Pinokio's own ComfyUI wrapper/launcher.", relevance:"Superseded &mdash; a direct D:\\ComfyUI install already exists and is in active use.", flag:"Superseded 2026-07-14"},
+  {app:"deeperhermes.git", size:0.04, tier:"unusable", cat:"Other", desc:"LLM variant, essentially empty.", relevance:"Failed or abandoned install.", flag:"0.04GB &mdash; effectively empty"},
+  {app:"Orpheus-TTS-FastAPI.git", size:0, tier:"unusable", cat:"Text-to-speech", desc:"TTS on Llama-3B backbone.", relevance:"Registered but never downloaded &mdash; nothing here to use.", flag:"0GB &mdash; nothing downloaded"},
+];
+
+const tierLabel = {high:"High impact", medium:"Medium impact", low:"Low impact", unusable:"Not usable"};
+let activeTier = "all";
+
+function fmtSize(gb) {
+  if (gb === 0) return "0 GB";
+  if (gb < 1) return gb.toFixed(2) + " GB";
+  return gb.toFixed(1) + " GB";
+}
+
+function render() {
+  const catalog = document.getElementById("catalog");
+  const rows = DATA
+    .filter(d => activeTier === "all" || d.tier === activeTier)
+    .sort((a,b) => b.size - a.size);
+  catalog.innerHTML = rows.map((d, i) => `
+    <div class="card">
+      <div class="num">No. ${String(i+1).padStart(2,'0')}</div>
+      <div>
+        <div class="name">${d.app}</div>
+        <div class="desc">${d.desc}</div>
+        <div class="relevance"><strong>${d.cat}.</strong> ${d.relevance}</div>
+        ${d.flag ? `<div class="flag">&#9888; ${d.flag}</div>` : ""}
+      </div>
+      <div style="text-align:right">
+        <div class="size">${fmtSize(d.size)}</div>
+        <span class="tier-tag tier-${d.tier}">${tierLabel[d.tier]}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderControls() {
+  const tiers = ["all","high","medium","low","unusable"];
+  const labels = {all:"All", high:"High impact", medium:"Medium impact", low:"Low impact", unusable:"Not usable"};
+  document.getElementById("controls").innerHTML = tiers.map(t =>
+    `<button class="tier-filter ${t===activeTier?'active':''}" data-tier="${t}">${labels[t]}</button>`
+  ).join("");
+  document.querySelectorAll(".tier-filter").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeTier = btn.dataset.tier;
+      renderControls();
+      render();
+    });
+  });
+}
+
+renderControls();
+render();
+</script>
+
+</body>
+</html>
