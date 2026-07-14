@@ -1,0 +1,17 @@
+# Pinokio-MCP Full Reference
+
+MCP server for controlling Pinokio — the 1-click localhost cloud for AI apps.
+
+## MCP Tools
+- `discover_apps` — Discover installed apps
+- `get_app_status` — Check app running status
+- `launch_app` — Launch a Pinokio app
+- `stop_app` — Stop a running app
+- `list_categories` — List app categories
+
+## Configuration
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `PINOKIO_HOST` | Pinokio host | localhost |
+| `PINOKIO_PORT` | Pinokio port | auto-discover |
+| `PINOKIO_HOME` | Pinokio home dir | auto-discover |

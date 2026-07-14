@@ -1,0 +1,11 @@
+# Pinokio-MCP
+
+MCP server for controlling Pinokio — the 1-click localhost cloud for AI apps.
+
+## Key Links
+- [llms-full.txt](llms-full.txt) — full reference
+- [README](README.md) — quick start
+
+## Quick Facts
+- Discovery: Zeroconf auto-detect Pinokio on the LAN
+- Tools: discover_apps, get_app_status, launch_app, stop_app, list_categories

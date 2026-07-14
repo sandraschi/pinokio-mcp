@@ -1,0 +1,8 @@
+{
+  "name": "pinokio-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for controlling Pinokio — the 1-click localhost cloud for AI apps",
+  "author": "sandraschi",
+  "tags": ["mcp", "fastmcp", "pinokio", "ai"],
+  "homepage": "https://github.com/sandraschi/pinokio-mcp"
+}
