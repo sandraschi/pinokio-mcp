@@ -51,9 +51,7 @@ async def _discover_devices(timeout: float = 3.0) -> list[PinokioDevice]:
     browsers: list[AsyncServiceBrowser] = []
     try:
         for service_type in _SERVICE_TYPES:
-            browsers.append(
-                AsyncServiceBrowser(aiozc.zeroconf, service_type, handlers=[listener])
-            )
+            browsers.append(AsyncServiceBrowser(aiozc.zeroconf, service_type, handlers=[listener]))
         await asyncio.sleep(timeout)
     finally:
         for browser in browsers:

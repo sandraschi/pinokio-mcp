@@ -104,9 +104,7 @@ class PinokioClient:
                 return None
             return None
 
-        results = await asyncio.gather(
-            *(_probe(port) for port in range(PORT_MIN, PORT_MAX + 1))
-        )
+        results = await asyncio.gather(*(_probe(port) for port in range(PORT_MIN, PORT_MAX + 1)))
         for candidate in results:
             if candidate is not None:
                 self._port = candidate
@@ -182,9 +180,8 @@ class PinokioClient:
                             "title": item.get("title"),
                             "description": item.get("description"),
                             "icon": item.get("icon"),
-                            "running": path in running_by_app or any(
-                                s.get("app") == path for s in scripts if isinstance(s, dict)
-                            ),
+                            "running": path in running_by_app
+                            or any(s.get("app") == path for s in scripts if isinstance(s, dict)),
                             "running_scripts": running_by_app.get(path, []),
                             "source": "api",
                         }
@@ -265,8 +262,7 @@ class PinokioClient:
                 for t in targets
                 if isinstance(t, dict)
                 and (
-                    needle in str(t.get("script_path") or "")
-                    or needle in str(t.get("path") or "")
+                    needle in str(t.get("script_path") or "") or needle in str(t.get("path") or "")
                 )
             ]
 
