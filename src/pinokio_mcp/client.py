@@ -293,7 +293,7 @@ class PinokioClient:
             "stopped": stopped,
             "message": (
                 "Stop signal sent via HTTP. Pinokio may require the desktop UI/WebSocket "
-                "to fully terminate processes — verify in Pinokio if scripts remain."
+                "to fully terminate processes - verify in Pinokio if scripts remain."
             ),
         }
 

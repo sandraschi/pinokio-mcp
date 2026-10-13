@@ -74,7 +74,7 @@ async def app_management(
             apps = client._list_apps_filesystem()  # noqa: SLF001
             return ToolResponse(
                 success=True,
-                message=f"Pinokio offline — listed {len(apps)} app(s) from filesystem",
+                message=f"Pinokio offline - listed {len(apps)} app(s) from filesystem",
                 data={"apps": apps, "pinokio_online": False, "home": str(client.home)},
                 suggestions=[str(exc)],
             ).to_dict()

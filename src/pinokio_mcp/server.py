@@ -1,4 +1,4 @@
-"""FastMCP server for Pinokio — stdio transport."""
+"""FastMCP server for Pinokio - stdio transport."""
 
 from __future__ import annotations
 
@@ -106,10 +106,10 @@ async def resource_lww_devices() -> str:
 def prompt_start_workflow() -> str:
     return (
         "To start a Pinokio AI workflow:\n"
-        "1. system_management(action='ping') — confirm Pinokio is running\n"
-        "2. app_management(action='list') — list installed apps\n"
-        "3. app_management(action='start', app='<folder>', script='start.js') — launch\n"
-        "4. system_management(action='localhost_search') — find proxied URLs\n"
+        "1. system_management(action='ping') - confirm Pinokio is running\n"
+        "2. app_management(action='list') - list installed apps\n"
+        "3. app_management(action='start', app='<folder>', script='start.js') - launch\n"
+        "4. system_management(action='localhost_search') - find proxied URLs\n"
     )
 
 
@@ -117,7 +117,7 @@ def prompt_start_workflow() -> str:
 def prompt_cross_device() -> str:
     return (
         "LAN Wide Web orchestration:\n"
-        "1. lww_management(action='devices') — find Pinokio on the LAN\n"
+        "1. lww_management(action='devices') - find Pinokio on the LAN\n"
         "2. lww_management(action='start_remote', device='192.168.x.x:42000', app='<name>')\n"
     )
 

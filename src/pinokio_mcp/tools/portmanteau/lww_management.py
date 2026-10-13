@@ -1,4 +1,4 @@
-"""LAN Wide Web — discover Pinokio instances and start apps remotely."""
+"""LAN Wide Web - discover Pinokio instances and start apps remotely."""
 
 from __future__ import annotations
 
