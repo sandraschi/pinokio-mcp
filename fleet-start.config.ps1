@@ -5,7 +5,7 @@
     BackendPort  = 0
     FrontendPort = 0
     HealthPath   = '/health'
-    WebRoot      = 'D:\Dev\repos\pinokio-mcp\web_sota'
+    WebRoot      = 'web_sota'
     Backend = @{
         Kind = 'none'
     }
