@@ -2,8 +2,8 @@
 # Edit ports/backend target here - start.ps1 is fleet-standard.
 @{
     Name         = 'pinokio-mcp'
-    BackendPort  = 0
-    FrontendPort = 0
+    BackendPort  = 11250
+    FrontendPort = 11249
     HealthPath   = '/health'
     WebRoot      = 'web_sota'
     Backend = @{
