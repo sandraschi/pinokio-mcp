@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "text",
+        "text": "## Session Context (Pinokio-MCP)\nYou have Pinokio app control: app_management (list/status/start/stop/delete), system_management (ping/info/localhost_search), lww_management (devices/start_remote). Before starting work: ping, then list. At end of work: stop anything you started."
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "pinokio-mcp",
+  "description": "SessionStart hook: Pinokio app awareness for Claude Code.",
+  "version": "1.0.0",
+  "hooks": "../hooks/hooks.json"
+}
