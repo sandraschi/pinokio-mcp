@@ -3,7 +3,14 @@
 **Last surveyed:** 2026-11-25 (via filesystem scan; UI last active 2026-11-24).
 **Why this exists:** `pinokio-mcp` can list, start, and stop Pinokio apps, but it has no concept of *what's actually inside them* - whether an app has real downloaded model weights or is just an empty environment. This doc is the missing piece: a real inventory of what's here, what it's good for, and what's worth trying first. It's a snapshot, not a live view - re-survey when apps are added or removed (see "Keeping this current" at the bottom).
 
-**Total footprint:** ~124GB across 15 installed apps (was ~550GB / 20 apps in July; installs were pruned).
+**Total footprint:** ~100GB across 9 installed apps (re-surveyed 2026-11-25; was ~550GB / 20 apps in July, installs pruned since).
+
+> Staleness note (2026-11-25): the per-app entries below predate the prune.
+> Only these folders still exist: `comfy.git`, `deeperhermes.git`,
+> `diffrhythm.git`, `Frame-Pack.git`, `lingbot-world-pinokio.git`,
+> `SongGeneration-Studio.git`, `StyleAligned.pinokio.git`, `wan.git`,
+> `zonos.git`. Entries for removed apps are kept for history until the next
+> full re-survey with weight-file checks.
 
 ---
 

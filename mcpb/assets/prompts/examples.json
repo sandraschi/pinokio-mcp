@@ -1,3 +1,887 @@
 [
-  { "tool": "", "params": {}, "description": "REQUIRED: 100+ structured tool call mappings showing every operation and parameter combination." }
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "list"
+    },
+    "when": "Pinokio running or not; always safe to call first",
+    "expected": "success=true with apps[] (source api or filesystem) and pinokio_online flag"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "LiSt"
+    },
+    "when": "verifying case-insensitivity",
+    "expected": "actions are case-normalized, same as list"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "nope"
+    },
+    "when": "typo in the action discriminator",
+    "expected": "client-side Literal validation error before any network call"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "comfy.git"
+    },
+    "when": "checking comfy.git before starting it",
+    "expected": "success=true with running/scripts/source for comfy.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "Frame-Pack.git"
+    },
+    "when": "checking Frame-Pack.git before starting it",
+    "expected": "success=true with running/scripts/source for Frame-Pack.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "wan.git"
+    },
+    "when": "checking wan.git before starting it",
+    "expected": "success=true with running/scripts/source for wan.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "zonos.git"
+    },
+    "when": "checking zonos.git before starting it",
+    "expected": "success=true with running/scripts/source for zonos.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "diffrhythm.git"
+    },
+    "when": "checking diffrhythm.git before starting it",
+    "expected": "success=true with running/scripts/source for diffrhythm.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "SongGeneration-Studio.git"
+    },
+    "when": "checking SongGeneration-Studio.git before starting it",
+    "expected": "success=true with running/scripts/source for SongGeneration-Studio.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "StyleAligned.pinokio.git"
+    },
+    "when": "checking StyleAligned.pinokio.git before starting it",
+    "expected": "success=true with running/scripts/source for StyleAligned.pinokio.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "lingbot-world-pinokio.git"
+    },
+    "when": "checking lingbot-world-pinokio.git before starting it",
+    "expected": "success=true with running/scripts/source for lingbot-world-pinokio.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "deeperhermes.git"
+    },
+    "when": "checking deeperhermes.git before starting it",
+    "expected": "success=true with running/scripts/source for deeperhermes.git (offline: running=false, source=offline)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "comfy.git"
+    },
+    "when": "launching comfy.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs comfy.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "Frame-Pack.git"
+    },
+    "when": "launching Frame-Pack.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs Frame-Pack.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "wan.git"
+    },
+    "when": "launching wan.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs wan.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "zonos.git"
+    },
+    "when": "launching zonos.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs zonos.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "diffrhythm.git"
+    },
+    "when": "launching diffrhythm.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs diffrhythm.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "SongGeneration-Studio.git"
+    },
+    "when": "launching SongGeneration-Studio.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs SongGeneration-Studio.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "StyleAligned.pinokio.git"
+    },
+    "when": "launching StyleAligned.pinokio.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs StyleAligned.pinokio.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "lingbot-world-pinokio.git"
+    },
+    "when": "launching lingbot-world-pinokio.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs lingbot-world-pinokio.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "deeperhermes.git"
+    },
+    "when": "launching deeperhermes.git with the default start.js",
+    "expected": "launched=true and 2xx status_code when Pinokio runs deeperhermes.git; offline error naming the daemon when down"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "comfy.git",
+      "script": "start.js"
+    },
+    "when": "pinning the script name explicitly",
+    "expected": "explicit script resolves on disk then launches via GET /api/comfy.git/start.js"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "comfy.git",
+      "script": "custom"
+    },
+    "when": "custom script without extension",
+    "expected": "bare name resolves to custom.json then custom.js before the HTTP call"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "wan.git",
+      "script": "start.js"
+    },
+    "when": "first-time launch warning path for wan.git",
+    "expected": "explicit start.js for wan.git; first launch may download tens of GB of weights"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "zonos.git",
+      "script": "start.js"
+    },
+    "when": "first-time launch warning path for zonos.git",
+    "expected": "explicit start.js for zonos.git; first launch may download tens of GB of weights"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "diffrhythm.git",
+      "script": "start.js"
+    },
+    "when": "first-time launch warning path for diffrhythm.git",
+    "expected": "explicit start.js for diffrhythm.git; first launch may download tens of GB of weights"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start"
+    },
+    "when": "forgotten app argument",
+    "expected": "success=false with message naming the missing app parameter"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "  "
+    },
+    "when": "whitespace-only app argument",
+    "expected": "blank app treated as missing, suggestions point at list"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "comfy.git"
+    },
+    "when": "stopping comfy.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify comfy.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "Frame-Pack.git"
+    },
+    "when": "stopping Frame-Pack.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify Frame-Pack.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "wan.git"
+    },
+    "when": "stopping wan.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify wan.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "zonos.git"
+    },
+    "when": "stopping zonos.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify zonos.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "diffrhythm.git"
+    },
+    "when": "stopping diffrhythm.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify diffrhythm.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "SongGeneration-Studio.git"
+    },
+    "when": "stopping SongGeneration-Studio.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify SongGeneration-Studio.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "StyleAligned.pinokio.git"
+    },
+    "when": "stopping StyleAligned.pinokio.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify StyleAligned.pinokio.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "lingbot-world-pinokio.git"
+    },
+    "when": "stopping lingbot-world-pinokio.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify lingbot-world-pinokio.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "deeperhermes.git"
+    },
+    "when": "stopping deeperhermes.git after work",
+    "expected": "stopped[] paths that received ?stop=true plus the best-effort warning; verify deeperhermes.git with status"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "comfy.git",
+      "script": "start.js"
+    },
+    "when": "stopping one script of a multi-script app",
+    "expected": "script filter narrows targets to matching script_path entries"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "delete",
+      "app": "zonos.git"
+    },
+    "when": "pruning unused zonos.git (destructive \u2014 confirm in session)",
+    "expected": "requires explicit user confirmation first; deleted=true removes env and weights"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "delete",
+      "app": "diffrhythm.git"
+    },
+    "when": "pruning unused diffrhythm.git (destructive \u2014 confirm in session)",
+    "expected": "requires explicit user confirmation first; deleted=true removes env and weights"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "delete",
+      "app": "deeperhermes.git"
+    },
+    "when": "pruning unused deeperhermes.git (destructive \u2014 confirm in session)",
+    "expected": "requires explicit user confirmation first; deleted=true removes env and weights"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "delete",
+      "app": "missing.git"
+    },
+    "when": "deleting a folder that is not installed",
+    "expected": "Pinokio API error surfaced as success=false with the daemon message"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "ping"
+    },
+    "when": "health check before any mutating call",
+    "expected": "online true/false with host, port, and resolved home; never raises when down"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "inventorying a running daemon",
+    "expected": "home/platform/arch/version plus scripts/proxies/api arrays; offline raises PinokioOfflineError"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "spot-checking the home field",
+    "expected": "info.data carries home from GET /pinokio/info"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "spot-checking the version field",
+    "expected": "info.data carries version from GET /pinokio/info"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "spot-checking the scripts field",
+    "expected": "info.data carries scripts from GET /pinokio/info"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "spot-checking the proxies field",
+    "expected": "info.data carries proxies from GET /pinokio/info"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "spot-checking the api field",
+    "expected": "info.data carries api from GET /pinokio/info"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "localhost_search"
+    },
+    "when": "finding app URLs to hand to the user",
+    "expected": "proxied services for opening URLs; empty list when nothing is proxied"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "bogus"
+    },
+    "when": "typo in the system action",
+    "expected": "client-side Literal validation error"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "devices"
+    },
+    "when": "looking for LAN peers",
+    "expected": "verified host:port instances after mDNS plus /check; empty list when none reachable"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "bogus"
+    },
+    "when": "typo in the LAN action",
+    "expected": "client-side Literal validation error"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "comfy.git"
+    },
+    "when": "remote start of comfy.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for comfy.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "Frame-Pack.git"
+    },
+    "when": "remote start of Frame-Pack.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for Frame-Pack.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "wan.git"
+    },
+    "when": "remote start of wan.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for wan.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "zonos.git"
+    },
+    "when": "remote start of zonos.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for zonos.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "diffrhythm.git"
+    },
+    "when": "remote start of diffrhythm.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for diffrhythm.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "SongGeneration-Studio.git"
+    },
+    "when": "remote start of SongGeneration-Studio.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for SongGeneration-Studio.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "StyleAligned.pinokio.git"
+    },
+    "when": "remote start of StyleAligned.pinokio.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for StyleAligned.pinokio.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "lingbot-world-pinokio.git"
+    },
+    "when": "remote start of lingbot-world-pinokio.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for lingbot-world-pinokio.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "deeperhermes.git"
+    },
+    "when": "remote start of deeperhermes.git with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx for deeperhermes.git"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10",
+      "port": 42001,
+      "app": "wan.git"
+    },
+    "when": "remote start with split host/port",
+    "expected": "bare host plus separate port composes the same remote URL"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "not a host!!!",
+      "app": "comfy.git"
+    },
+    "when": "unreachable device address",
+    "expected": "transport error surfaced as success=false, no retry storm"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "app": "comfy.git"
+    },
+    "when": "forgotten device argument",
+    "expected": "success=false asking for device as host:port with a devices hint"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote"
+    },
+    "when": "forgotten app argument",
+    "expected": "success=false naming the missing app parameter"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:abc",
+      "app": "comfy.git"
+    },
+    "when": "garbage port segment",
+    "expected": "unparseable port falls back to the explicit port arg or errors asking for host:port"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "ping"
+    },
+    "when": "health check before any mutating call",
+    "expected": "online true/false with host, port, and resolved home; never raises when down"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "inventorying a running daemon",
+    "expected": "home/platform/arch/version plus scripts/proxies/api arrays; offline raises PinokioOfflineError"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "localhost_search"
+    },
+    "when": "finding app URLs to hand to the user",
+    "expected": "proxied services for opening URLs; empty list when nothing is proxied"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "bogus"
+    },
+    "when": "typo in the system action",
+    "expected": "client-side Literal validation error"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "devices"
+    },
+    "when": "looking for LAN peers",
+    "expected": "verified host:port instances after mDNS plus /check; empty list when none reachable"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:42000",
+      "app": "comfy.git"
+    },
+    "when": "remote start with explicit host:port",
+    "expected": "launched=true when the remote answers 2xx"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10",
+      "port": 42001,
+      "app": "wan.git"
+    },
+    "when": "remote start with split host/port",
+    "expected": "bare host plus separate port composes the same remote URL"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "not a host!!!",
+      "app": "comfy.git"
+    },
+    "when": "unreachable device address",
+    "expected": "transport error surfaced as success=false, no retry storm"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "app": "comfy.git"
+    },
+    "when": "forgotten device argument",
+    "expected": "success=false asking for device as host:port with a devices hint"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote"
+    },
+    "when": "forgotten app argument",
+    "expected": "success=false naming the missing app parameter"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "start_remote",
+      "device": "192.168.1.10:abc",
+      "app": "comfy.git"
+    },
+    "when": "garbage port segment",
+    "expected": "unparseable port falls back to the explicit port arg or errors asking for host:port"
+  },
+  {
+    "tool": "resource",
+    "arguments": {
+      "uri": "pinokio://apps"
+    },
+    "when": "dashboard snapshot without a tool call",
+    "expected": "same payload as app_management list"
+  },
+  {
+    "tool": "resource",
+    "arguments": {
+      "uri": "pinokio://running"
+    },
+    "when": "polling what is active",
+    "expected": "scripts plus online flag; offline yields empty scripts and online=false"
+  },
+  {
+    "tool": "resource",
+    "arguments": {
+      "uri": "pinokio://localhost"
+    },
+    "when": "URL discovery for the user",
+    "expected": "proxied services plus online flag"
+  },
+  {
+    "tool": "resource",
+    "arguments": {
+      "uri": "pinokio://lww/devices"
+    },
+    "when": "peer overview before remote starts",
+    "expected": "verified LAN instances with decoded properties"
+  },
+  {
+    "tool": "prompt",
+    "arguments": {
+      "name": "prompt_start_workflow"
+    },
+    "when": "priming a fresh agent for the standard flow",
+    "expected": "numbered ping/list/launch/localhost_search sequence"
+  },
+  {
+    "tool": "prompt",
+    "arguments": {
+      "name": "prompt_cross_device"
+    },
+    "when": "priming a fresh agent for remote work",
+    "expected": "devices-then-start_remote sequence"
+  },
+  {
+    "tool": "prompt",
+    "arguments": {
+      "name": "prompt_troubleshooting"
+    },
+    "when": "priming a fresh agent for failure modes",
+    "expected": "offline/wrong-home/partial-stop guidance plus live probe scripts"
+  },
+  {
+    "tool": "prompt",
+    "arguments": {
+      "name": "prompt_available_apps"
+    },
+    "when": "reminding agents that list output is not readiness proof",
+    "expected": "pointer at AVAILABLE_APPS.md: folders alone prove nothing, weights matter"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "comfy.git"
+    },
+    "when": "status with the daemon down",
+    "expected": "offline: running=false, scripts=[], source=offline (no raise)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "start",
+      "app": "comfy.git"
+    },
+    "when": "start with the daemon down",
+    "expected": "offline: PinokioOfflineError naming ports 42000-42059 plus start hints"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "delete",
+      "app": "comfy.git"
+    },
+    "when": "delete with the daemon down",
+    "expected": "offline: PinokioOfflineError before any destructive step (safe failure mode)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "stop",
+      "app": "comfy.git"
+    },
+    "when": "stop with the daemon down",
+    "expected": "offline status lookup yields no targets; message says nothing is running"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "info"
+    },
+    "when": "info with the daemon down",
+    "expected": "offline: PinokioOfflineError, not an empty payload"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "localhost_search"
+    },
+    "when": "proxy search with the daemon down",
+    "expected": "offline: PinokioOfflineError, not an empty payload"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "list"
+    },
+    "when": "asserting the dialogic contract on app_management",
+    "expected": "envelope always carries success (bool) and message (human sentence)"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "ping"
+    },
+    "when": "asserting the dialogic contract on system_management",
+    "expected": "envelope always carries success (bool) and message (human sentence)"
+  },
+  {
+    "tool": "lww_management",
+    "arguments": {
+      "action": "devices"
+    },
+    "when": "asserting the dialogic contract on lww_management",
+    "expected": "envelope always carries success (bool) and message (human sentence)"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "status",
+      "app": "demo-app"
+    },
+    "when": "status for a folder that was uninstalled",
+    "expected": "unknown folder returns offline record, never throws"
+  },
+  {
+    "tool": "system_management",
+    "arguments": {
+      "action": "ping"
+    },
+    "when": "documenting the port override",
+    "expected": "PINOKIO_PORT set pins discovery; empty means scan 42000-42059"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "list"
+    },
+    "when": "documenting the home override",
+    "expected": "PINOKIO_HOME set pins the filesystem fallback root"
+  },
+  {
+    "tool": "prompt",
+    "arguments": {
+      "name": "prompt_available_apps"
+    },
+    "when": "verifying an app is actually usable before promising it",
+    "expected": "cross-checks list output against AVAILABLE_APPS.md weights inventory"
+  },
+  {
+    "tool": "app_management",
+    "arguments": {
+      "action": "list"
+    },
+    "when": "listing is not a readiness proof",
+    "expected": "folders alone prove installation; AVAILABLE_APPS.md proves readiness"
+  }
 ]
