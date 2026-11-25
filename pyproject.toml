@@ -35,10 +35,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Kept for pip-install compatibility; the dev workflow uses [dependency-groups] below.
+dev-compat = []
+
+[dependency-groups]
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",
+    "pytest-cov>=6.0.0",
     "ruff>=0.16.0,<0.17",
+    "pre-commit>=4.0.0",
 ]
 
 [project.scripts]
@@ -62,12 +68,17 @@ target-version = "py312"
 line-length = 100
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM", "T20"]
 ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*" = ["T20"]
+"scripts/**/*" = ["T20"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+addopts = ["--cov=src/pinokio_mcp", "--cov-report=term-missing", "--cov-fail-under=50"]
 
 [tool.mcpb]
 name = "pinokio-mcp"

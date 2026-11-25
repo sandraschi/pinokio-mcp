@@ -15,6 +15,14 @@ test:
 serve:
     uv run pinokio-mcp
 
+mcpb-pack:
+    powershell.exe -NoProfile -File scripts/mcpb-pack.ps1
+
+certify:
+    uv run ruff check src/
+    uv run ruff format src/ --check
+    uv run pytest -q
+
 # Bootstrap: install dev deps + pre-commit hook
 bootstrap:
     uv sync --group dev

@@ -9,14 +9,16 @@
     "entry_point": "src/pinokio_mcp/server.py",
     "mcp_config": {
       "command": "uv",
-      "args": ["run","--directory","${PWD}","python","-m","pinokio_mcp"],
+      "args": ["run", "--directory", "${__dirname}", "python", "-m", "pinokio_mcp"],
       "env": {
-        "PYTHONPATH": "${PWD}/src",
+        "PYTHONPATH": "${__dirname}/src",
         "PYTHONUNBUFFERED": "1"
       }
     }
   },
   "tools": [
-    { "name": "app_management", "description": "app_management" }
+    { "name": "app_management", "description": "Manage Pinokio apps: list, status, start, stop, delete" },
+    { "name": "system_management", "description": "Pinokio system operations: ping, info, localhost_search" },
+    { "name": "lww_management", "description": "LAN Wide Web: discover Pinokio instances and start apps remotely" }
   ]
 }
