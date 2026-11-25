@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Any, Literal
 
 from pinokio_mcp.client import PinokioAPIError, PinokioClient, PinokioOfflineError
 from pinokio_mcp.models import ToolResponse
+
+logger = logging.getLogger(__name__)
 
 
 async def app_management(
@@ -87,6 +90,8 @@ async def app_management(
             ],
         ).to_dict()
     except PinokioAPIError as exc:
+        logger.warning("Pinokio API error in app_management: %s", exc)
         return ToolResponse(success=False, message=str(exc)).to_dict()
     except Exception as exc:  # noqa: BLE001
+        logger.exception("Unexpected error in app_management")
         return ToolResponse(success=False, message=f"Unexpected error: {exc}").to_dict()

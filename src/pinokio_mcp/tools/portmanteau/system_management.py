@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Any, Literal
 
 from pinokio_mcp.client import PinokioClient, PinokioOfflineError
 from pinokio_mcp.models import ToolResponse
+
+logger = logging.getLogger(__name__)
 
 
 async def system_management(
@@ -72,4 +75,5 @@ async def system_management(
             suggestions=["Start Pinokio", "Run scripts/discover-api.ps1 to probe ports"],
         ).to_dict()
     except Exception as exc:  # noqa: BLE001
+        logger.exception("Unexpected error in system_management")
         return ToolResponse(success=False, message=f"Unexpected error: {exc}").to_dict()

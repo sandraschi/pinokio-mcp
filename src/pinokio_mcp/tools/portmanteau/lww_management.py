@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import socket
 from typing import Any, Literal
 
@@ -14,6 +15,8 @@ from pinokio_mcp.client import PORT_MAX, PORT_MIN, PinokioClient
 from pinokio_mcp.models import PinokioDevice, ToolResponse
 
 _SERVICE_TYPES = ("_pinokio._tcp.local.", "_http._tcp.local.")
+
+logger = logging.getLogger(__name__)
 
 
 class _PinokioListener:
@@ -143,4 +146,5 @@ async def lww_management(
         ).to_dict()
 
     except Exception as exc:  # noqa: BLE001
+        logger.exception("Unexpected error in lww_management")
         return ToolResponse(success=False, message=f"Unexpected error: {exc}").to_dict()

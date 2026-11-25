@@ -3,15 +3,20 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
-from typing import Literal
+from typing import Annotated, Literal
 
 from fastmcp import FastMCP
+from mcp.types import ToolAnnotations
+from pydantic import Field
 
 from pinokio_mcp.client import PinokioClient
 from pinokio_mcp.tools.portmanteau.app_management import app_management as _app_management
 from pinokio_mcp.tools.portmanteau.lww_management import lww_management as _lww_management
 from pinokio_mcp.tools.portmanteau.system_management import system_management as _system_management
+
+logger = logging.getLogger(__name__)
 
 mcp = FastMCP(
     "pinokio-mcp",
@@ -21,6 +26,33 @@ mcp = FastMCP(
         "lww_management for LAN devices. Pinokio must be running for start/stop/delete; "
         "list works offline via filesystem."
     ),
+)
+
+_TOOL_OUTPUT_SCHEMA: dict[str, object] = {
+    "type": "object",
+    "properties": {
+        "success": {"type": "boolean"},
+        "message": {"type": "string"},
+        "data": {"type": "object"},
+        "suggestions": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["success", "message"],
+}
+
+_MUTATING_ANNOTATIONS = ToolAnnotations(
+    title="Mutating Pinokio control",
+    readOnlyHint=False,
+    destructiveHint=True,
+    idempotentHint=False,
+    openWorldHint=True,
+)
+
+_READ_ONLY_ANNOTATIONS = ToolAnnotations(
+    title="Read-only Pinokio query",
+    readOnlyHint=True,
+    destructiveHint=False,
+    idempotentHint=True,
+    openWorldHint=True,
 )
 
 _client: PinokioClient | None = None
@@ -33,33 +65,97 @@ def _get_client() -> PinokioClient:
     return _client
 
 
-@mcp.tool()
+@mcp.tool(
+    annotations=_MUTATING_ANNOTATIONS,
+    output_schema=_TOOL_OUTPUT_SCHEMA,
+)
 async def app_management(
-    action: Literal["list", "status", "start", "stop", "delete"],
-    app: str | None = None,
-    script: str | None = None,
+    action: Annotated[
+        Literal["list", "status", "start", "stop", "delete"],
+        Field(description="Lifecycle operation to run"),
+    ],
+    app: Annotated[
+        str | None,
+        Field(description="App folder name under the Pinokio api dir (omit for list)"),
+    ] = None,
+    script: Annotated[
+        str | None,
+        Field(description="Pinokio script to run (default start.js); start/stop only"),
+    ] = None,
 ) -> dict:
-    """Manage Pinokio apps: list, status, start, stop, delete."""
+    """Manage Pinokio apps: list, status, start, stop, delete.
+
+    ## Return Format
+    A dialogic dict: `success` (bool), `message` (human-readable summary),
+    plus `data` (operation payload) and `suggestions` (next steps) when relevant.
+
+    ## Examples
+    - `app_management(action="list")` lists installed apps with running state.
+    - `app_management(action="status", app="comfy.git")` shows running scripts.
+    - `app_management(action="start", app="comfy.git", script="start.js")` launches the app.
+    """
     return await _app_management(_get_client(), action=action, app=app, script=script)
 
 
-@mcp.tool()
+@mcp.tool(
+    annotations=_READ_ONLY_ANNOTATIONS,
+    output_schema=_TOOL_OUTPUT_SCHEMA,
+)
 async def system_management(
-    action: Literal["ping", "info", "localhost_search"],
+    action: Annotated[
+        Literal["ping", "info", "localhost_search"],
+        Field(description="System query to run"),
+    ],
 ) -> dict:
-    """Pinokio system operations: ping, info, localhost_search."""
+    """Pinokio system operations: ping, info, localhost_search.
+
+    ## Return Format
+    A dialogic dict: `success` (bool), `message` (human-readable summary),
+    plus `data` (operation payload) and `suggestions` (next steps) when relevant.
+
+    ## Examples
+    - `system_management(action="ping")` checks reachability (works offline).
+    - `system_management(action="localhost_search")` lists proxied local services.
+    """
     return await _system_management(_get_client(), action=action)
 
 
-@mcp.tool()
+@mcp.tool(
+    annotations=_MUTATING_ANNOTATIONS,
+    output_schema=_TOOL_OUTPUT_SCHEMA,
+)
 async def lww_management(
-    action: Literal["devices", "start_remote"],
-    device: str | None = None,
-    app: str | None = None,
-    script: str | None = None,
-    port: int | None = None,
+    action: Annotated[
+        Literal["devices", "start_remote"],
+        Field(description="LAN operation: list instances or start an app remotely"),
+    ],
+    device: Annotated[
+        str | None,
+        Field(description="Target as host:port, e.g. 192.168.1.10:42000 (start_remote only)"),
+    ] = None,
+    app: Annotated[
+        str | None,
+        Field(description="App folder name on the remote instance (start_remote only)"),
+    ] = None,
+    script: Annotated[
+        str | None,
+        Field(description="Pinokio script to run remotely (default start.js)"),
+    ] = None,
+    port: Annotated[
+        int | None,
+        Field(description="Remote port when device gives only a host"),
+    ] = None,
 ) -> dict:
-    """LAN Wide Web: discover Pinokio instances and start apps remotely."""
+    """LAN Wide Web: discover Pinokio instances and start apps remotely.
+
+    ## Return Format
+    A dialogic dict: `success` (bool), `message` (human-readable summary),
+    plus `data` (operation payload) and `suggestions` (next steps) when relevant.
+
+    ## Examples
+    - `lww_management(action="devices")` lists reachable Pinokio instances on the LAN.
+    - `lww_management(action="start_remote", device="192.168.1.10:42000", app="comfy.git")` launches remotely.
+    """
     return await _lww_management(
         _get_client(),
         action=action,
@@ -146,6 +242,7 @@ def prompt_available_apps() -> str:
 
 
 def main() -> None:
+    logging.basicConfig(level=logging.WARNING)
     os.environ.setdefault("FASTMCP_LOG_LEVEL", "WARNING")
     mcp.run()
 
