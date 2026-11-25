@@ -12,6 +12,23 @@ uv run pinokio-mcp
 
 Or via fleet launcher: `mcp-central-docs\starts\pinokio-start.bat`
 
+## Install (Claude Desktop)
+
+One-liner: download `pinokio-mcp.mcpb` from the [latest release](https://github.com/sandraschi/pinokio-mcp/releases/latest/download/pinokio-mcp.mcpb), double-click it, or run `install.ps1` from the release assets.
+
+Manual config (`uvx`):
+```json
+{
+  "mcpServers": {
+    "pinokio": {
+      "command": "uvx",
+      "args": ["pinokio-mcp"],
+      "env": { "PINOKIO_HOST": "localhost" }
+    }
+  }
+}
+```
+
 ## Cursor / Claude MCP config
 
 ```json

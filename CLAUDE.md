@@ -6,8 +6,7 @@ MCP server for controlling Pinokio — the 1-click localhost cloud for AI apps.
 - `uv run pinokio-mcp` → `pinokio_mcp.server:main`
 
 ## Standards
-- FastMCP 3.4+ tools
-- Dual transport: stdio + HTTP
+- FastMCP 3.4+ tools, stdio transport
 - See mcp-central-docs for fleet-wide coding standards
 
 ## Quick Ref

@@ -2,12 +2,12 @@
 
 MCP server for controlling Pinokio — the 1-click localhost cloud for AI apps.
 
-## MCP Tools
-- `discover_apps` — Discover installed apps
-- `get_app_status` — Check app running status
-- `launch_app` — Launch a Pinokio app
-- `stop_app` — Stop a running app
-- `list_categories` — List app categories
+## MCP Tools (portmanteau, action-discriminated)
+- `app_management` — list, status, start, stop, delete apps (`action=`)
+- `system_management` — ping, info, localhost_search (`action=`)
+- `lww_management` — devices, start_remote for LAN instances (`action=`)
+- Resources: `pinokio://apps`, `pinokio://running`, `pinokio://localhost`, `pinokio://lww/devices`
+- Prompts: start workflow, cross-device, troubleshooting, available-apps
 
 ## Configuration
 | Variable | Purpose | Default |

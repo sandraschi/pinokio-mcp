@@ -1,10 +1,10 @@
 ## Session Context (Pinokio-MCP)
 
-You have access to Pinokio app management: discover, launch, stop, and monitor AI apps running on Pinokio.
+You have Pinokio app control: list, launch, stop, and monitor local AI apps.
 
 **Before starting work:**
-1. Discover available apps: `discover_apps()`
-2. Check app status: `get_app_status()`
+1. `system_management(action="ping")` — confirm Pinokio is reachable
+2. `app_management(action="list")` — see installed apps and running state
 
 **At end of work:**
-- Stop any launched test apps: `stop_app()`
+- Stop anything you started: `app_management(action="stop", app="<folder>")`

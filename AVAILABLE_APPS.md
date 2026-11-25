@@ -1,9 +1,9 @@
 # Available Local AI Apps - What's Actually on This Pinokio Install
 
-**Last surveyed:** 2026-07-14 (via `pinokio-mcp`'s own `app_management(action="list")`, cross-checked with a direct filesystem size scan)
+**Last surveyed:** 2026-11-25 (via filesystem scan; UI last active 2026-11-24).
 **Why this exists:** `pinokio-mcp` can list, start, and stop Pinokio apps, but it has no concept of *what's actually inside them* - whether an app has real downloaded model weights or is just an empty environment. This doc is the missing piece: a real inventory of what's here, what it's good for, and what's worth trying first. It's a snapshot, not a live view - re-survey when apps are added or removed (see "Keeping this current" at the bottom).
 
-**Total footprint:** ~550GB across 20 installed apps.
+**Total footprint:** ~124GB across 15 installed apps (was ~550GB / 20 apps in July; installs were pruned).
 
 ---
 
