@@ -18,6 +18,10 @@ llms-full.txt
 dist/
 build/
 *.mcpb
+.coverage
+.coverage.*
+htmlcov/
+reports/
 
 # Non-MCP components (webapp, native, scripts)
 native/
