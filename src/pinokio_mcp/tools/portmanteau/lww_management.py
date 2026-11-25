@@ -8,7 +8,7 @@ import socket
 from typing import Any, Literal
 
 import httpx
-from zeroconf import Zeroconf
+from zeroconf import ServiceListener, Zeroconf
 from zeroconf.asyncio import AsyncServiceBrowser, AsyncZeroconf
 
 from pinokio_mcp.client import PORT_MAX, PORT_MIN, PinokioClient
@@ -19,7 +19,7 @@ _SERVICE_TYPES = ("_pinokio._tcp.local.", "_http._tcp.local.")
 logger = logging.getLogger(__name__)
 
 
-class _PinokioListener:
+class _PinokioListener(ServiceListener):
     def __init__(self) -> None:
         self.devices: dict[str, PinokioDevice] = {}
 
@@ -38,7 +38,10 @@ class _PinokioListener:
             name=name.removesuffix("." + type_.rstrip(".")),
             host=host,
             port=port,
-            properties={k.decode(): v.decode(errors="ignore") for k, v in info.properties.items()},
+            properties={
+                k.decode(): (v.decode(errors="ignore") if v is not None else "")
+                for k, v in info.properties.items()
+            },
         )
 
     def remove_service(self, zc: Zeroconf, type_: str, name: str) -> None:
@@ -54,7 +57,7 @@ async def _discover_devices(timeout: float = 3.0) -> list[PinokioDevice]:
     browsers: list[AsyncServiceBrowser] = []
     try:
         for service_type in _SERVICE_TYPES:
-            browsers.append(AsyncServiceBrowser(aiozc.zeroconf, service_type, handlers=[listener]))
+            browsers.append(AsyncServiceBrowser(aiozc.zeroconf, service_type, handlers=listener))
         await asyncio.sleep(timeout)
     finally:
         for browser in browsers:
